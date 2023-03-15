@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h2>quản lí sinh viên</h2>
+    <div class="container">
+      <label for="">id</label><br />
+      <input type="text" onfocus="this.value=''" /><br />
+      <label for="">Ten</label><br />
+      <input id="name" type="text" /><br />
+      <label for="">msv</label><br />
+      <input id="msv" type="text" /><br />
+      <label for="">giới tính</label><br />
+      <input id="male" type="text" /><br />
+      <label for="">quê quán</label><br />
+      <input id="queQuan" type="text" /><br />
+      <button onclick="saveIput()">lưu</button>
+    </div>
+    <table border="1px" id="table">
+      <tr>
+        <td>Id</td>
+        <td>Ten</td>
+        <td>msv</td>
+        <td>giới tính</td>
+        <td>quê quán</td>
+        <td>edit</td>
+        <td>delete</td>
+      </tr>
+    </table>
+    <script>
+      let liststuden = JSON.parse(localStorage.getItem("liststuden"));
+      function saveIput() {
+        let nameSv = document.getElementById("name").value;
+        let maSv = document.getElementById("msv").value;
+        let maleSex = document.getElementById("male").value;
+        let life = document.getElementById("queQuan").value;
+       
+        let dataSv = {
+          id: 1,
+          name: nameSv,
+          msv: maSv,
+          male: maleSex,
+          queQuan: life,
+        };
+        if (liststuden == null) {
+          liststuden = [];
+          liststuden.push(dataSv)
+          localStorage.setItem("liststuden",JSON.stringify(liststuden))
+      }else{
+        liststuden.push(dataSv)
+        localStorage.setItem("liststuden",JSON.stringify(liststuden))
+
+      }
+        liststuden.push(dataSv);
+        console.log(liststuden);
+        renderlist();
+      }
+
+      function defaultInput() {
+        document.getElementById("id").value = "";
+        document.getElementById("name").value = "";
+        document.getElementById("msv").value = "";
+        document.getElementById("male").value = "";
+        document.getElementById("queQuan").value = "";
+      }
+
+      function renderlist() {
+        let renderTable = `
+        <tr>
+          <td>Id</td>
+          <td>Ten</td>
+          <td>msv</td>
+          <td>giới tính</td>
+          <td>quê quán</td>
+          <td>edit</td>
+          <td>delete</td> 
+        </tr>`;
+        for (let i = 0; i < liststuden.length; i++) {
+          renderTable += `
+          <tr>
+            <td>${i + 1}</td>
+            <td>${liststuden[i].name}</td>
+            <td>${liststuden[i].msv}</td>
+            <td>${liststuden[i].male}</td>
+            <td>${liststuden[i].queQuan}</td>
+            <td> <button onclick="editBtn(${i})">edit</button></td>
+        <td> <button onclick="deleteBtn(${i})">delete</button></td>
+          </tr>`;
+          document.getElementById("table").innerHTML = renderTable;
+          defaultInput();
+        }
+      }
+      function deleteBtn(id) {
+        liststuden.splice(id, 1);
+        localStorage.setItem("liststuden",JSON.stringify(liststuden))
+
+        renderlist();
+      }
+      
+
+      // let mayCat = {
+      //   furColor: "trắng",
+      //   sothich : {
+      //     anlau: "rau ma"
+      //   },
+      //   key12 : "gau",
+      // }
+      // mayCat["furColor"]='mau den';
+      // let mayCat2 = mayCat;
+      // mayCat.furColor = 'den';
+      // console.log(mayCat.sothich);
+      // function Person(name,age) {
+      //   this.name=name;
+      //   this.age=age
+      // }
+      // let person1 = new Person("huy",34);
+      // let person2 = new Person("long",35);
+      // console.log(person1);
+    </script>
+  </body>
+</html>

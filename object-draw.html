@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <canvas id="myCanvas"></canvas>
+    <script>
+      function Rectangle(width, height) {
+        this.width = width;
+        this.height = height;
+
+        this.getwidth = function () {
+          return this.getwidth;
+        };
+        this.getheight = function () {
+          return this.getheight;
+        };
+
+        this.caculateP = function () {
+          return (this.width + this.height) * 2;
+        };
+        this.caculateS = function () {
+          return this.width * this.height;
+        };
+      }
+
+      const rectagnleOne = new Rectangle(20, 50);
+      const width = rectagnleOne.width;
+      const dientich = rectagnleOne.caculateS();
+      const chuvi = rectagnleOne.caculateP();
+    let draw = document.getElementById("myCanvas")
+    let ctx = draw.getContext("2")
+    ctx.fillRect(0,0,20,50)
+    ctx.moveTo(0,0);
+    ctx.Rectangle(20, 50);
+    ctx.stroke();
+    </script>
+  </body>
+</html>
