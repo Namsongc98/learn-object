@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      Apple = function (weight) {
+        this.weight = weight;
+        this.getWeight = function () {
+          return this.weight;
+        };
+        this.descrease = function () {
+          return (this.weight = this.weight - 1);
+        };
+        this.isEmpty = function () {
+          if (this.getWeight() == 0) {
+            return true;
+          }
+          return false;
+        };
+      };
+
+      // Object persion: variable (name, gender, weight)
+      function Person(nameInput, genderInput, weightInput, apple) {
+        this.name = nameInput;
+        this.gender = genderInput;
+        this.weight = weightInput;
+        this.isMale = function () {
+          if (this.gender == "nam") {
+            return true;
+          }
+          return false;
+        };
+        this.setGender = function (check) {
+          if (check == true) {
+            this.gender = "nam";
+          } else {
+            this.gender = "nu";
+          }
+        };
+        this.checkApple = function (apple) {
+          if (apple.getWeight() > 0) {
+            return true;
+          } else {
+            return false;
+          }
+        };
+        this.eat = function (apple) {
+          if (this.checkApple(apple)) {
+            this.weight = this.weight + 1;
+            apple.descrease();
+          }
+        };
+        this.say = function (chuoiTuDenoi) {
+          console.log(chuoiTuDenoi);
+        };
+        this.getWeight = function () {
+          return this.weight;
+        };
+        this.setWeight = function (weight) {
+          this.weight = weight;
+        };
+      }
+      function adamEvaEatApple(adam, eva, apple) {
+        console.log("------------------------------------------");
+        adam.say("Toi an truoc qua tao!");
+        adam.eat(apple);
+        console.log("can nang cua adam: ", adam.getWeight());
+        console.log("can nang cua tao: ", apple.getWeight());
+        eva.say("Den luot toi la eva an!");
+        eva.eat(apple);
+        console.log("can nang cua eva: ", eva.getWeight());
+        console.log("can nang cua tao: ", apple.getWeight());
+        if (!apple.isEmpty()) {
+          setTimeout(adamEvaEatApple(adam, eva, apple), 500);
+        } else {
+          alert("adam va eva da an het 1 qua tao!");
+        }
+      }
+      const apple = new Apple(10);
+      const adam = new Person("adam", "nam", 80, apple);
+      const eva = new Person("eva", "nu", 50, apple);
+      adamEvaEatApple(adam, eva, apple);
+    </script>
+  </body>
+</html>

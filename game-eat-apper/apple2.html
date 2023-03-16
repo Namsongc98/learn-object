@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      function Apple(weight) {
+        (this.weight = weight),
+          (this.decrease = function () {
+            return (this.weight = weight - 1);
+          });
+        this.isEmpty = function () {
+          if (this.weight == 0) {
+            return true;
+          } else {
+            return false;
+          }
+        };
+        this.getWeight = function () {
+          return getWeight;
+        };
+      }
+      const apple = new Apple(10);
+      function Human(name, gender, weight) {
+        (this.name = name),
+          (this.gender = gender),
+          (this.weight = weight),
+          (this.isMale = function () {
+            if (this.gender == "nam") {
+              this.gender = true;
+            } else {
+              this.gender = false;
+            }
+            this.setGender = function (chek) {
+              if (chek == true) {
+                this.gender = "nam";
+              } else {
+                this.gender = "nu";
+              }
+              this.chekApple = function (apple) {
+                if (this.getWeight() > 0) {
+                  return true;
+                } else {
+                  return false;
+                }
+              };
+              this.eat = function (apple) {
+                if (this.chekApple(apple)) {
+                  this.weight = weight + 1;
+                  apple.decrease()
+                }
+              };
+              this.say = function(name){
+                console.log("toi biet noi")
+              }
+              this.getName = function () {
+                return name;
+              }
+              this.setName = function (name) {
+                return;
+              }
+              this.getWeight = function () {
+                  this.weight = this.weight + 1
+              }
+              this.setweight() = function (weight) {
+                return weight;
+              }
+
+            };
+          });
+      }
+      function eatApple () {
+
+      }
+      console.log(eatApple())
+      const humanAdam = new Human("adam", "nam", 70);
+      const humanEva = new Human("adam", "nu", 50);
+      console.log(humanAdam);
+    </script>
+  </body>
+</html>

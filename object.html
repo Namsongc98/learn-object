@@ -7,120 +7,115 @@
     <title>Document</title>
   </head>
   <body>
-    <h2>quản lí sinh viên</h2>
-    <div class="container">
-      <label for="">id</label><br />
-      <input type="text" onfocus="this.value=''" /><br />
-      <label for="">Ten</label><br />
-      <input id="name" type="text" /><br />
-      <label for="">msv</label><br />
-      <input id="msv" type="text" /><br />
-      <label for="">giới tính</label><br />
-      <input id="male" type="text" /><br />
-      <label for="">quê quán</label><br />
-      <input id="queQuan" type="text" /><br />
-      <button onclick="saveIput()">lưu</button>
-    </div>
-    <table border="1px" id="table">
+    <h2>nhập thông tin sinh viên</h2>
+    <label for="">Stt</label><br />
+    <input type="text" id="stt" /><br />
+    <label for="">Name</label><br />
+    <input type="text" id="name" /><br />
+    <label for="">Gender</label><br />
+    <input type="text" id="gender" /><br />
+    <label for="">Age</label><br />
+    <input type="text" id="age" /><br />
+    <label for="">Mã SV</label><br />
+    <input type="text" id="code" /><br />
+    <label for="">Quê quán</label><br />
+    <input type="text" id="country" /><br />
+    <button onclick="save()">lưu</button>
+    <h2>Thông tin học sinh</h2>
+    <table id="tablelist">
       <tr>
-        <td>Id</td>
-        <td>Ten</td>
-        <td>msv</td>
-        <td>giới tính</td>
-        <td>quê quán</td>
-        <td>edit</td>
-        <td>delete</td>
+        <td id="id">STT</td>
+        <td id="">Name</td>
+        <td id="">Gender</td>
+        <td id="">Age</td>
+        <td id="">Mã SV</td>
+        <td id="id">Quê quán</td>
+        <td><button onclick="edit()">edit</button></td>
+        <td><button onclick="xoa()">Delete</button></td>
       </tr>
     </table>
+
     <script>
-      let liststuden = JSON.parse(localStorage.getItem("liststuden"));
-      function saveIput() {
-        let nameSv = document.getElementById("name").value;
-        let maSv = document.getElementById("msv").value;
-        let maleSex = document.getElementById("male").value;
-        let life = document.getElementById("queQuan").value;
-       
-        let dataSv = {
-          id: 1,
-          name: nameSv,
-          msv: maSv,
-          male: maleSex,
-          queQuan: life,
+      let listsudent = JSON.parse(localStorage.getItem("listsudent"));
+      function save() {
+        let nameStd = document.getElementById("name").value;
+        let genderStd = document.getElementById("gender").value;
+        let ageStd = document.getElementById("age").value;
+        let codeStd = document.getElementById("code").value;
+        let countryStd = document.getElementById("country").value;
+        let objListStd = {
+          name: nameStd,
+          gender: genderStd,
+          age: ageStd,
+          code: codeStd,
+          country: countryStd,
         };
-        if (liststuden == null) {
-          liststuden = [];
-          liststuden.push(dataSv)
-          localStorage.setItem("liststuden",JSON.stringify(liststuden))
-      }else{
-        liststuden.push(dataSv)
-        localStorage.setItem("liststuden",JSON.stringify(liststuden))
+        let flag = JSON.parse(localStorage.getItem("flag"));
 
-      }
-        liststuden.push(dataSv);
-        console.log(liststuden);
-        renderlist();
-      }
-
-      function defaultInput() {
-        document.getElementById("id").value = "";
-        document.getElementById("name").value = "";
-        document.getElementById("msv").value = "";
-        document.getElementById("male").value = "";
-        document.getElementById("queQuan").value = "";
-      }
-
-      function renderlist() {
-        let renderTable = `
-        <tr>
-          <td>Id</td>
-          <td>Ten</td>
-          <td>msv</td>
-          <td>giới tính</td>
-          <td>quê quán</td>
-          <td>edit</td>
-          <td>delete</td> 
-        </tr>`;
-        for (let i = 0; i < liststuden.length; i++) {
-          renderTable += `
-          <tr>
-            <td>${i + 1}</td>
-            <td>${liststuden[i].name}</td>
-            <td>${liststuden[i].msv}</td>
-            <td>${liststuden[i].male}</td>
-            <td>${liststuden[i].queQuan}</td>
-            <td> <button onclick="editBtn(${i})">edit</button></td>
-        <td> <button onclick="deleteBtn(${i})">delete</button></td>
-          </tr>`;
-          document.getElementById("table").innerHTML = renderTable;
-          defaultInput();
+        if (flag != null) {
+          listsudent.splice(flag, 1, objListStd);
+          localStorage.setItem("listsudent", JSON.stringify(listsudent));
+          localStorage.removeItem("flag");
+          renderStd();
+          return;
         }
-      }
-      function deleteBtn(id) {
-        liststuden.splice(id, 1);
-        localStorage.setItem("liststuden",JSON.stringify(liststuden))
+        if (listsudent == null) {
+          listsudent = [];
+          listsudent.push(objListStd);
+          localStorage.setItem("listsudent", JSON.stringify(listsudent));
+        } else {
+          listsudent.push(objListStd);
+          localStorage.setItem("listsudent", JSON.stringify(listsudent));
+        }
 
-        renderlist();
+        renderStd();
       }
-      
-
-      // let mayCat = {
-      //   furColor: "trắng",
-      //   sothich : {
-      //     anlau: "rau ma"
-      //   },
-      //   key12 : "gau",
-      // }
-      // mayCat["furColor"]='mau den';
-      // let mayCat2 = mayCat;
-      // mayCat.furColor = 'den';
-      // console.log(mayCat.sothich);
-      // function Person(name,age) {
-      //   this.name=name;
-      //   this.age=age
-      // }
-      // let person1 = new Person("huy",34);
-      // let person2 = new Person("long",35);
-      // console.log(person1);
+      function renderStd() {
+        let tableFake = `
+        <tr>
+          <td id="id">STT</td>
+          <td id="">Name</td>
+          <td id="">Gender</td>
+          <td id="">Age</td>
+          <td id="">Mã SV</td>
+          <td id="id">Quê quán</td>
+          <td><button onclick="edit()"> Edit</button></td>
+          <td><button onclick="xoa()"> Delete</button></td>
+        </tr>`;
+        for (let i = 0; i < listsudent.length; i++) {
+          tableFake += `
+          <tr>
+          <td id="id">${i + 1}</td>
+          <td id="">${listsudent[i].name}</td>
+          <td id="">${listsudent[i].gender}</td>
+          <td id="">${listsudent[i].age}</td>
+          <td id="">${listsudent[i].code}</td>
+          <td id="id">${listsudent[i].country}</td>
+          <td><button onclick="edit(${i})">Edit</button></td>
+          <td><button onclick="xoa(${i})">Delete</button></td>
+        </tr>`;
+          document.getElementById("tablelist").innerHTML = tableFake;
+        }
+        document.getElementById("stt").value = "";
+        document.getElementById("name").value = "";
+        document.getElementById("gender").value = "";
+        document.getElementById("age").value = "";
+        document.getElementById("code").value = "";
+        document.getElementById("country").value = "";
+      }
+      function xoa(index) {
+        listsudent.splice(index, 1);
+        localStorage.setItem("listsudent", JSON.stringify(listsudent));
+        renderStd();
+      }
+      function edit(editItem) {
+        document.getElementById("name").value = listsudent[editItem].name;
+        document.getElementById("gender").value = listsudent[editItem].gender;
+        document.getElementById("age").value = listsudent[editItem].age;
+        document.getElementById("code").value = listsudent[editItem].code;
+        document.getElementById("country").value = listsudent[editItem].country;
+        localStorage.setItem("flag", editItem);
+      }
     </script>
   </body>
 </html>
